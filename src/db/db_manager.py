@@ -7,7 +7,9 @@ class Db_manager():
         self.conn = sqlite3.connect(f'{dbpath}')
         self.cursor = self.conn.cursor()
 
-        # Generate Surahs Table
+
+    def generate_table(self):
+                # Generate Surahs Table
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS Surahs (
                             surah_id INTEGER PRIMARY KEY AUTOINCREMENT,
                             surah_name TEXT NOT NULL,
@@ -29,7 +31,7 @@ class Db_manager():
                             surah_id INTEGER,
                             is_secde_ayat INTEGER,
                             page INTEGER NOT NULL,
-                            FOREIGN KEY (surah_id) REFERENCES Surahs(surah_id)
+                            FOREIGN KEY (surah_id) REFERENCES Surahs(surah_name)
                             )''')
 
     def add_surah(self, surah_name: str, ayat_count: int, nuzul_sort: int):
@@ -53,7 +55,7 @@ class Db_manager():
         self.conn = sqlite3.connect('Kuran.db')
         self.cursor = self.conn.cursor()
         self.cursor.execute("INSERT INTO Ayat (ayat_no, ayat, surah_id, page, is_secde_ayat) VALUES (?, ?, ?, ?, ?)",
-                            (ayat_no, ayat, surah_id, is_secde_ayat, page))
+                            (ayat_no, ayat, surah_id, page ,is_secde_ayat))
         self.conn.commit()
         #print("Ayet eklendi.")
         
