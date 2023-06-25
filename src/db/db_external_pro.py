@@ -4,10 +4,11 @@ from src.db import db_presets
 class Db_Ex_pro():
     def __init__(self, dbpath):
         # Database connection
-        self.start(dbpath)
+        self.dbpath=dbpath
+        self.start()
 
-    def start(self, dbpath):
-        self.conn = sqlite3.connect(f'{dbpath}')
+    def start(self):
+        self.conn = sqlite3.connect(f'{self.dbpath}')
         self.cursor = self.conn.cursor()
 
     def generate_table(self, table_name, table_info):
@@ -49,7 +50,7 @@ class Db_Ex_pro():
 
     def update_element(self, tablo_name, up_col, where_col, new_data, where_data):
         self.cursor = self.conn.cursor()
-        q_mark='AND '.join([f'{e} = ?' for e in where_col])
+        q_mark=' AND '.join([f'{e} = ?' for e in where_col])
         q_data=(new_data,) + where_data
         print(f"UPDATE {tablo_name} SET {up_col} = ? WHERE {q_mark}", q_data)
         try:
