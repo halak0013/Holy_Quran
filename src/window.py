@@ -1,9 +1,11 @@
 import sys
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QColor, QPalette,QIcon
+from PySide6.QtGui import QColor, QPalette,QIcon,QTransform,QFont
 from PySide6.QtWidgets import *
 from db.db_external_pro import Db_Ex_pro
 import static.stc1 as st
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -17,7 +19,7 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(self.wdg_main)
         
-        
+        self.fill_page(("surah_id",),(1,))
 
 
     def all_variables(self):
@@ -82,12 +84,32 @@ class MainWindow(QMainWindow):
         
         
     def get_Surah_name(self):
+        self.db.start()
         self.Surah_names=self.db.get_element("Surahs")
+        self.db.end_process()
         #TODO: add Surah name item limit
         print(self.Surah_names)
         for s in self.Surah_names:
             self.cmb_Surah_name.addItem(f"{s[0]}-{s[1]}")
         self.cmb_Surah_option.addItems(st.surah_options)
+        
+        
+        
+    def fill_page(self,where,data):
+        self.db.start()
+        self.all_ayat=self.db.get_element("Ayat",where=where,data=data)
+        self.db.end_process()
+        
+        for a in self.all_ayat:
+            ayat=QLabel(str(a[2]))
+            ayat.setFont(QFont("Shaikh Hamdullah Mushaf",29,weight=3))
+            #ayat.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+            ayrac = QFrame()
+            ayrac.setFrameShape(QFrame.HLine)
+            self.vBox_Ayat.addWidget(ayat)
+            self.vBox_Ayat.addWidget(ayrac)
+        
+        
         
     #? splitter part
     def splitter_part(self):
