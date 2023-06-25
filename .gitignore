@@ -1,5 +1,5 @@
 logo.xcf
-test/
+/test/
 HayratKuran.db
 # Byte-compiled / optimized / DLL files
 __pycache__/
