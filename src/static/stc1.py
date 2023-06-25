@@ -1,0 +1,1 @@
+surah_options=["Kuaran-ı Kerim","Alfabetik","Nuzül"]

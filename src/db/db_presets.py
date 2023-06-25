@@ -4,8 +4,6 @@ TX = "TEXT"
 NN = "NOT NULL"
 
 
-ornek_tablo = [f"id {INT_PKA}", f"name {TX} {NN}"]
-ornek_tablo_c = ["name"]
 
 surah_table = [f"surah_id {INT_PKA}", f"surah_name {TX} {NN}",
                f"ayat_count {INT}", f"nuzul_sort {INT}"
@@ -19,4 +17,4 @@ ayat_table = [f"ayat_id {INT_PKA}", f"ayat_no {INT} {NN}",
 ayat_table_c = ["ayat_id", "ayat_no", "ayat",
                 "surah_id", "is_secde_ayat", "page"]
 
-secde_
+

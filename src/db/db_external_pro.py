@@ -1,11 +1,12 @@
 import sqlite3
-import db_presets
-import db_manager
-
+from src.db import db_presets
 
 class Db_Ex_pro():
     def __init__(self, dbpath):
         # Database connection
+        self.start(dbpath)
+
+    def start(self, dbpath):
         self.conn = sqlite3.connect(f'{dbpath}')
         self.cursor = self.conn.cursor()
 
@@ -46,11 +47,19 @@ class Db_Ex_pro():
             f"DELETE FROM {tablo_name} WHERE {column} = ?", (data,))
         self.conn.commit()
 
-    def update_element(self, tablo_name, column, up_col, where_col, new_data, where_data):
-        self.cursor.execute(
-            f"UPDATE {tablo_name} SET {up_col} = ? WHERE {where_col} = ?", (new_data, where_data))
-        self.conn.commit()
-
+    def update_element(self, tablo_name, up_col, where_col, new_data, where_data):
+        self.cursor = self.conn.cursor()
+        q_mark='AND '.join([f'{e} = ?' for e in where_col])
+        q_data=(new_data,) + where_data
+        print(f"UPDATE {tablo_name} SET {up_col} = ? WHERE {q_mark}", q_data)
+        try:
+            self.cursor.execute(
+            f"UPDATE {tablo_name} SET {up_col} = ? WHERE {q_mark}", q_data)
+            self.conn.commit()
+        except:
+            pass
+        
+        
     def list_Surah(self):
         self.cursor = self.conn.cursor()
         self.cursor.execute("SELECT * FROM Surahs")
@@ -59,11 +68,11 @@ class Db_Ex_pro():
             print(
                 f"Sure ID: {kategori[0]}, Sure Adı: {kategori[1]}, Ayet sayısı: {kategori[2]},, Nuzul sırası: {kategori[3]}")
 
-    def get_element(self,table_name):
+    def get_element(self, table_name, column="*"):
         self.cursor = self.conn.cursor()
-        self.cursor.execute(f"SELECT * FROM {table_name}")
+        self.cursor.execute(f"SELECT {column} FROM {table_name}")
         return self.cursor.fetchall()
-    
+
     def end_process(self):
         self.conn.close()
 
