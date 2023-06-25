@@ -1,5 +1,5 @@
 import sqlite3
-from src.db import db_presets
+from db import db_presets
 
 class Db_Ex_pro():
     def __init__(self, dbpath):
@@ -69,9 +69,14 @@ class Db_Ex_pro():
             print(
                 f"Sure ID: {kategori[0]}, Sure Adı: {kategori[1]}, Ayet sayısı: {kategori[2]},, Nuzul sırası: {kategori[3]}")
 
-    def get_element(self, table_name, column="*"):
+    def get_element(self, table_name, column="*",where=None,data=None):
         self.cursor = self.conn.cursor()
-        self.cursor.execute(f"SELECT {column} FROM {table_name}")
+        if where == None:
+            self.cursor.execute(f"SELECT {column} FROM {table_name}")
+        else:
+            q_mark=' AND '.join([f'{e} = ?' for e in where])
+            self.cursor.execute(f"SELECT {column} FROM {table_name} where {q_mark}",data)
+
         return self.cursor.fetchall()
 
     def end_process(self):
