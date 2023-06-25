@@ -41,7 +41,7 @@ class MainWindow(QMainWindow):
         self.btn_play_back=QPushButton("⏪")
         self.btn_play=QPushButton("⏯️")
         self.btn_play_next=QPushButton("⏩")
-        self.label_Surah_name=QLabel("Fatih")
+        self.label_Surah_name=QLabel("Fatiha")
         self.btn_page_back=QPushButton("◀️")
         self.label_page_num=QLabel("Sayfa")
         self.btn_page_next=QPushButton("▶️")
@@ -102,7 +102,7 @@ class MainWindow(QMainWindow):
         
         for a in self.all_ayat:
             ayat=QLabel(str(a[2]))
-            ayat.setFont(QFont("Shaikh Hamdullah Mushaf",29,weight=3))
+            ayat.setFont(QFont("Shaikh Hamdullah Mushaf",23,weight=3))
             #ayat.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
             ayrac = QFrame()
             ayrac.setFrameShape(QFrame.HLine)
@@ -119,6 +119,7 @@ class MainWindow(QMainWindow):
         
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon("data/img/logo57_57.png"))
     mainWindow = MainWindow()
     mainWindow.show()
     sys.exit(app.exec())
