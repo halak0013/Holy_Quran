@@ -1,5 +1,5 @@
 import sqlite3
-from db import db_presets
+from src.db import db_presets
 
 class Db_Ex_pro():
     def __init__(self, dbpath):
@@ -52,29 +52,25 @@ class Db_Ex_pro():
         self.cursor = self.conn.cursor()
         q_mark=' AND '.join([f'{e} = ?' for e in where_col])
         q_data=(new_data,) + where_data
-        print(f"UPDATE {tablo_name} SET {up_col} = ? WHERE {q_mark}", q_data)
+        #print(f"UPDATE {tablo_name} SET {up_col} = ? WHERE {q_mark}", q_data)
         try:
             self.cursor.execute(
             f"UPDATE {tablo_name} SET {up_col} = ? WHERE {q_mark}", q_data)
             self.conn.commit()
-        except:
-            pass
+        except Exception as e:
+            print(e)
         
-        
-    def list_Surah(self):
-        self.cursor = self.conn.cursor()
-        self.cursor.execute("SELECT * FROM Surahs")
-        sure = self.cursor.fetchall()
-        for kategori in sure:
-            print(
-                f"Sure ID: {kategori[0]}, Sure Adı: {kategori[1]}, Ayet sayısı: {kategori[2]},, Nuzul sırası: {kategori[3]}")
 
-    def get_element(self, table_name, column="*",where=None,data=None):
+    def get_element(self, table_name, column="*",where=None,data=None,is_special=False):
         self.cursor = self.conn.cursor()
         if where == None:
             self.cursor.execute(f"SELECT {column} FROM {table_name}")
+        elif is_special == True:
+            #print(f"SELECT {column} FROM {table_name} {where}",data)
+            self.cursor.execute(f"SELECT {column} FROM {table_name} {where}",data)
         else:
             q_mark=' AND '.join([f'{e} = ?' for e in where])
+            #print(f"SELECT {column} FROM {table_name} where {q_mark}")
             self.cursor.execute(f"SELECT {column} FROM {table_name} where {q_mark}",data)
 
         return self.cursor.fetchall()
