@@ -6,7 +6,7 @@ It is Holy Quran app
 <img src="data/img/logo.png" width="100">
 
 
-<img src="data/img/test/main.png" width="500">
+<img src="data/img/test/main_v2.png" width="500">
 
 .
 
@@ -29,6 +29,16 @@ It uses [Presidency of the Republic of Türkiye
 Presidency of Religious Affairs Noble Quran file](https://kuran.diyanet.gov.tr/Yayinlar)
 
 
-Now it sperate Noble Quran ayats and generate data base.
+## InshAllah Now it has
+- Sperate Noble Quran ayats and generate data base.**
+- Playing ayats with a lot of Imams
+- Chosing page or ayats
 
-InshAllah try to make a grafic user interface with read, listen and research application.
+** you can generate same data base with jupiter nootbok and Kuran.txt but i take page numbers and secde ayats info another database
+
+## InshAllah it will have
+- Searching surah and ayat
+- Surah view improvment
+- Searching Keyword, word and senetence
+- Meal
+- Translation
