@@ -22,6 +22,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.wdg_main)
 
         self.fill_page(("page",), (0,))
+        self.change_Surah_name()
+        
 
     def all_variables(self):
         self.default_surah = 1
@@ -59,7 +61,7 @@ class MainWindow(QMainWindow):
         self.cmb_page_option = QComboBox()
         self.label_Surah_name = QLabel("Fatiha")
         self.btn_page_next = QPushButton("◀️")
-        self.spn_page_num = QSpinBox()
+        self.spn_num = QSpinBox()
         self.btn_page_back = QPushButton("▶️")
 
         self.btn_play_back = QPushButton("⏪")
@@ -67,22 +69,15 @@ class MainWindow(QMainWindow):
         self.btn_play_next = QPushButton("⏩")
         self.cmb_imams = QComboBox()
 
-        self.vBox_Surah_search = QVBoxLayout()
-        self.hBox_Surah_name = QHBoxLayout()
 
-        self.cmb_Surah_name = QComboBox()
-        self.cmb_Surah_option = QComboBox()
-        self.inp_Ayat = QLineEdit()
 
-        self.selected_label = None
-        self.current_ayat_index = 0
+
 
     # ? layout adding part
     def layout_add(self):
         self.vBox_main.addLayout(self.hBox_header)
         self.vBox_main.addWidget(self.splitter)
         self.header_part()
-        self.tool_part()
         self.Ayat_part()
         self.player_part()
 
@@ -91,23 +86,23 @@ class MainWindow(QMainWindow):
         self.hBox_header.addWidget(self.cmb_page_option)
         self.hBox_header.addWidget(self.label_Surah_name)
         self.hBox_header.addWidget(self.btn_page_next)
-        self.hBox_header.addWidget(self.spn_page_num)
+        self.hBox_header.addWidget(self.spn_num)
         self.hBox_header.addWidget(self.btn_page_back)
 
         self.cmb_page_option.addItems(["Sayfa", "Sure"])
         self.cmb_page_option.currentIndexChanged.connect(
             self.cmb_change_page_option)
 
-        self.spn_page_num.setMinimum(1)
-        self.spn_page_num.setMaximum(604)
-        self.spn_page_num.valueChanged.connect(self.spn_page_change)
+        self.spn_num.setMinimum(st.spn_p_min)
+        self.spn_num.setMaximum(st.spn_p_max)
+        self.spn_num.valueChanged.connect(self.spn_num_change)
 
         self.btn_setting.clicked.connect(self.btn_clk_setting)
         self.btn_play_back.clicked.connect(self.btn_clk_play_back)
         self.btn_play.clicked.connect(self.btn_clk_play)
         self.btn_play_next.clicked.connect(self.btn_clk_play_next)
-        self.btn_page_back.clicked.connect(self.btn_clk_page_back)
-        self.btn_page_next.clicked.connect(self.btn_clk_page_next)
+        self.btn_page_back.clicked.connect(self.btn_clk_back)
+        self.btn_page_next.clicked.connect(self.btn_clk_next)
 
     def Ayat_part(self):
         self.scroll_Ayat.setMinimumSize(500, 700)
@@ -127,31 +122,7 @@ class MainWindow(QMainWindow):
 
         self.vBox_Ayat_player.addLayout(self.hBox_player)
 
-    def tool_part(self):
-        self.hBox_Surah_name.addWidget(self.cmb_Surah_name)
-        self.hBox_Surah_name.addWidget(self.cmb_Surah_option)
-
-        self.vBox_Surah_search.addLayout(self.hBox_Surah_name)
-        self.vBox_tools.addLayout(self.vBox_Surah_search)
-        self.vBox_tools.addWidget(self.inp_Ayat)
-
-        self.inp_Ayat.setPlaceholderText("Ayet No")
-        self.get_Surah_name()
-
-    def get_Surah_name(self):
-        self.db.start()
-        self.Surah_names = self.db.get_element("Surahs")
-        self.db.end_process()
-        # TODO: add Surah name item limit
-        # print(self.Surah_names)
-        for s in self.Surah_names:
-            self.cmb_Surah_name.addItem(f"{s[0]}-{s[1]}")
-        self.cmb_Surah_option.addItems(st.surah_options)
-
-
-
-        # ? fill pages
-
+    # ? fill pages
     def fill_page(self, where, data):
         self.db.start()
         self.all_ayat = self.db.get_element("Ayat", where=where, data=data)
@@ -163,8 +134,8 @@ class MainWindow(QMainWindow):
             if widget:
                 widget.deleteLater()
 
-        st.crt_Ayat_i = self.all_ayat[0][0]-1  # ? all ayat_id = index +1
-        st.Ayat_dif=st.crt_Ayat_i
+        firs_id = self.all_ayat[0][0]-1  # ? all ayat_id = index +1
+        st.Ayat_dif=firs_id
         # 0     1   2   3 differance 122
         # 122 123 124 125
         
@@ -193,17 +164,21 @@ class MainWindow(QMainWindow):
         index=st.crt_Ayat_i-st.Ayat_dif
         print(f"index: {index} crt_Ayat_i: {st.crt_Ayat_i} st.Ayat_dif: {st.Ayat_dif}" )
         if index >= len(self.ayat_list):
-            self.btn_clk_page_next()
+            self.btn_clk_next()
             self.Ayat_coloring()
             return
         elif index < 0:
-            self.btn_clk_page_back()
+            self.btn_clk_back()
             self.Ayat_coloring()
             return
         for a in self.ayat_list:
             a.setStyleSheet("QLabel { color: white; }")
+            if a.ayat_info[4]==1:
+                a.setStyleSheet("QLabel { color: orange; }")
+        self.scroll_Ayat.ensureWidgetVisible(self.ayat_list[index])
         self.ayat_list[index].setStyleSheet(
             "QLabel { color: red; }")
+        #self.scroll_Ayat.verticalScrollBar().setPageStep(5)
 
 
     # ? splitter part
@@ -213,25 +188,41 @@ class MainWindow(QMainWindow):
         self.splitter.addWidget(self.wdg_Ayat_player)
 
     def change_page(self):
-        self.fill_page(("page",), (self.default_page-1,))
+        self.fill_page(("page",), (self.spn_num.value()-1,))
+        
+    def change_Surah(self):
+        self.fill_page(("surah_id",), (self.spn_num.value(),))
+        
 
     def cmb_change_page_option(self):
         selected = self.cmb_page_option.currentIndex()
         if selected == 0:
+            self.spn_num.setMinimum(st.spn_p_min)
+            self.spn_num.setMaximum(st.spn_p_max)
             self.change_page()
             print(selected)
         else:
-            self.fill_page(("surah_id",), (self.default_surah,))
+            self.spn_num.setMinimum(st.spn_s_min)
+            self.spn_num.setMaximum(st.spn_s_max)
+            self.change_Surah()
             print(selected)
 
     def imam_chaged(self):
         self.imam_code = self.imam_list[self.cmb_imams.currentIndex()][1]
+        
+    def change_Surah_name(self):
+        index=self.all_ayat[0][3]-1
+        self.label_Surah_name.setText(f"{st.Surah_names[index][0]}-{st.Surah_names[index][1]}")
 
-    def spn_page_change(self):
-        current = self.spn_page_num.value()
-        self.default_page = current
-        self.change_page()
-        self.cmb_page_option.setCurrentIndex(0)
+    def spn_num_change(self):
+        selected = self.cmb_page_option.currentIndex()
+        if selected == 0:
+            self.change_page()
+        else:
+            self.change_Surah()
+        self.change_Surah_name()
+            
+
 
     def btn_clk_setting(self):
         pass
@@ -268,16 +259,10 @@ class MainWindow(QMainWindow):
         sellected_ayat=st.all_ayat_list[st.crt_Ayat_i]
         pl.playAudio(sellected_ayat)
 
-    def btn_clk_page_back(self):
-        if self.default_page > 0:
-            self.default_page -= 1
-            # ? it is already changing in the spinner function
-            self.spn_page_num.setValue(self.default_page)
-            self.cmb_page_option.setCurrentIndex(0)
+    def btn_clk_back(self):
+        # ? it is already changing in the spinner function
+        self.spn_num.setValue(self.spn_num.value()-1)
 
-    def btn_clk_page_next(self):
-        if self.default_page < 604:
-            self.default_page += 1
-            # ? it is already changing in the spinner function
-            self.spn_page_num.setValue(self.default_page)
-            self.cmb_page_option.setCurrentIndex(0)
+    def btn_clk_next(self):
+        # ? it is already changing in the spinner function
+        self.spn_num.setValue(self.spn_num.value()+1)

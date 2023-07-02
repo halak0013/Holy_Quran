@@ -15,20 +15,5 @@ class Ayat_label(QLabel):
         
     def mousePressEvent(self,event):
         self.clicked.emit(self.ayat_info,self.index)
-        #self.setStyleSheet("QLabel {color:red;}")
         super().mousePressEvent(event)
-        #self.chageCurrentColor()
 
-    def chageCurrentColor(self):
-        # Get the currently selected label (if any)
-        current_label = self.window().selected_label
-        
-        # Restore the color of the previously selected label (if any)
-        if current_label:
-            current_label.setStyleSheet("QLabel { color: white; }")
-        
-        # Set the color of the clicked label
-        self.setStyleSheet("QLabel { color: red; }")
-        
-        # Set the clicked label as the currently selected label
-        self.window().selected_label = self
