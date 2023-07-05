@@ -1,10 +1,11 @@
 import sqlite3
 from src.db import db_presets
 
+
 class Db_Ex_pro():
     def __init__(self, dbpath):
         # Database connection
-        self.dbpath=dbpath
+        self.dbpath = dbpath
         self.start()
 
     def start(self):
@@ -50,28 +51,29 @@ class Db_Ex_pro():
 
     def update_element(self, tablo_name, up_col, where_col, new_data, where_data):
         self.cursor = self.conn.cursor()
-        q_mark=' AND '.join([f'{e} = ?' for e in where_col])
-        q_data=(new_data,) + where_data
-        #print(f"UPDATE {tablo_name} SET {up_col} = ? WHERE {q_mark}", q_data)
+        q_mark = ' AND '.join([f'{e} = ?' for e in where_col])
+        q_data = (new_data,) + where_data
+        # print(f"UPDATE {tablo_name} SET {up_col} = ? WHERE {q_mark}", q_data)
         try:
             self.cursor.execute(
-            f"UPDATE {tablo_name} SET {up_col} = ? WHERE {q_mark}", q_data)
+                f"UPDATE {tablo_name} SET {up_col} = ? WHERE {q_mark}", q_data)
             self.conn.commit()
         except Exception as e:
             print(e)
-        
 
-    def get_element(self, table_name, column="*",where=None,data=None,is_special=False):
+    def get_element(self, table_name, column="*", where: tuple = None, data: tuple = None, is_special=False):
         self.cursor = self.conn.cursor()
         if where == None:
             self.cursor.execute(f"SELECT {column} FROM {table_name}")
         elif is_special == True:
-            #print(f"SELECT {column} FROM {table_name} {where}",data)
-            self.cursor.execute(f"SELECT {column} FROM {table_name} {where}",data)
+            # print(f"SELECT {column} FROM {table_name} {where}",data)
+            self.cursor.execute(
+                f"SELECT {column} FROM {table_name} {where}", data)
         else:
-            q_mark=' AND '.join([f'{e} = ?' for e in where])
-            #print(f"SELECT {column} FROM {table_name} where {q_mark}")
-            self.cursor.execute(f"SELECT {column} FROM {table_name} where {q_mark}",data)
+            q_mark = ' AND '.join([f'{e} = ?' for e in where])
+            # print(f"SELECT {column} FROM {table_name} where {q_mark}")
+            self.cursor.execute(
+                f"SELECT {column} FROM {table_name} where {q_mark}", data)
 
         return self.cursor.fetchall()
 
