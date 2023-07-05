@@ -5,6 +5,7 @@ from src.db.db_external_pro import Db_Ex_pro
 import src.static.stc1 as st
 from src import player as pl
 from src.custom_widgets.Ayat_label import Ayat_label
+from src.theme import co
 
 
 class MainWindow(QMainWindow):
@@ -23,7 +24,6 @@ class MainWindow(QMainWindow):
 
         self.fill_page(("page",), (0,))
         self.change_Surah_name()
-        
 
     def all_variables(self):
         self.default_surah = 1
@@ -68,10 +68,6 @@ class MainWindow(QMainWindow):
         self.btn_play = QPushButton("⏯️")
         self.btn_play_next = QPushButton("⏩")
         self.cmb_imams = QComboBox()
-
-
-
-
 
     # ? layout adding part
     def layout_add(self):
@@ -123,10 +119,11 @@ class MainWindow(QMainWindow):
         self.vBox_Ayat_player.addLayout(self.hBox_player)
 
     # ? fill pages
-    def fill_page(self, where, data):
-        self.db.start()
-        self.all_ayat = self.db.get_element("Ayat", where=where, data=data)
-        self.db.end_process()
+    def fill_page(self, where=(), data=(), is_special=False):
+        if not is_special:
+            self.db.start()
+            self.all_ayat = self.db.get_element("Ayat", where=where, data=data)
+            self.db.end_process()
 
         while self.vBox_Ayat.count():
             item = self.vBox_Ayat.takeAt(0)
@@ -135,12 +132,12 @@ class MainWindow(QMainWindow):
                 widget.deleteLater()
 
         firs_id = self.all_ayat[0][0]-1  # ? all ayat_id = index +1
-        st.Ayat_dif=firs_id
+        st.Ayat_dif = firs_id
         # 0     1   2   3 differance 122
         # 122 123 124 125
-        
-        tmp_index = st.crt_Ayat_i
-        self.ayat_list=[]
+
+        tmp_index = firs_id
+        self.ayat_list = []
         for a in self.all_ayat:
             ayat = Ayat_label(str(a[2]), a, tmp_index)
             ayat.clicked.connect(self.Ayat_clicked)
@@ -154,15 +151,16 @@ class MainWindow(QMainWindow):
             self.vBox_Ayat.addWidget(ayrac)
 
     def Ayat_clicked(self, info, index):
-        st.crt_Ayat_i=index
+        st.crt_Ayat_i = index
         self.Ayat_coloring()
         print(st.crt_Ayat_i)
         self.play_status = "none"
         pl.stopAudio()
 
     def Ayat_coloring(self):
-        index=st.crt_Ayat_i-st.Ayat_dif
-        print(f"index: {index} crt_Ayat_i: {st.crt_Ayat_i} st.Ayat_dif: {st.Ayat_dif}" )
+        index = st.crt_Ayat_i-st.Ayat_dif
+        print(
+            f"index: {index} crt_Ayat_i: {st.crt_Ayat_i} st.Ayat_dif: {st.Ayat_dif}")
         if index >= len(self.ayat_list):
             self.btn_clk_next()
             self.Ayat_coloring()
@@ -172,16 +170,16 @@ class MainWindow(QMainWindow):
             self.Ayat_coloring()
             return
         for a in self.ayat_list:
-            a.setStyleSheet("QLabel { color: white; }")
-            if a.ayat_info[4]==1:
-                a.setStyleSheet("QLabel { color: orange; }")
+            a.setStyleSheet(f"QLabel {{ color: {co.seconder_color} ; }}")
+            if a.ayat_info[4] == 1:
+                a.setStyleSheet(f"QLabel {{ color: {co.highlight_color}; }}")
         self.scroll_Ayat.ensureWidgetVisible(self.ayat_list[index])
         self.ayat_list[index].setStyleSheet(
             "QLabel { color: red; }")
-        #self.scroll_Ayat.verticalScrollBar().setPageStep(5)
-
+        # self.scroll_Ayat.verticalScrollBar().setPageStep(5)
 
     # ? splitter part
+
     def splitter_part(self):
         # Ana bölünür paneli oluştur
         self.splitter.addWidget(self.wdg_tools)
@@ -189,10 +187,9 @@ class MainWindow(QMainWindow):
 
     def change_page(self):
         self.fill_page(("page",), (self.spn_num.value()-1,))
-        
+
     def change_Surah(self):
         self.fill_page(("surah_id",), (self.spn_num.value(),))
-        
 
     def cmb_change_page_option(self):
         selected = self.cmb_page_option.currentIndex()
@@ -209,10 +206,13 @@ class MainWindow(QMainWindow):
 
     def imam_chaged(self):
         self.imam_code = self.imam_list[self.cmb_imams.currentIndex()][1]
-        
+        pl.stopAudio()
+        self.play_status = "none"
+
     def change_Surah_name(self):
-        index=self.all_ayat[0][3]-1
-        self.label_Surah_name.setText(f"{st.Surah_names[index][0]}-{st.Surah_names[index][1]}")
+        index = self.all_ayat[0][3]-1
+        self.label_Surah_name.setText(
+            f"{st.Surah_names[index][0]}-{st.Surah_names[index][1]}")
 
     def spn_num_change(self):
         selected = self.cmb_page_option.currentIndex()
@@ -221,17 +221,15 @@ class MainWindow(QMainWindow):
         else:
             self.change_Surah()
         self.change_Surah_name()
-            
-
 
     def btn_clk_setting(self):
         pass
 
     def btn_clk_play_back(self):
         pl.is_first = True
-        st.crt_Ayat_i-=1
+        st.crt_Ayat_i -= 1
         self.Ayat_coloring()
-        sellected_ayat=st.all_ayat_list[st.crt_Ayat_i]
+        sellected_ayat = st.all_ayat_list[st.crt_Ayat_i]
         pl.playAudio(sellected_ayat)
 
     def btn_clk_play(self):
@@ -239,7 +237,7 @@ class MainWindow(QMainWindow):
         print(self.play_status)
         pl.imam = self.imam_code
         pl.slf = self
-        sellected_ayat=st.all_ayat_list[st.crt_Ayat_i]
+        sellected_ayat = st.all_ayat_list[st.crt_Ayat_i]
         print(sellected_ayat)
         if self.play_status == "none":
             self.play_status = "playing"
@@ -254,9 +252,9 @@ class MainWindow(QMainWindow):
 
     def btn_clk_play_next(self):
         pl.is_first = True
-        st.crt_Ayat_i+=1
+        st.crt_Ayat_i += 1
         self.Ayat_coloring()
-        sellected_ayat=st.all_ayat_list[st.crt_Ayat_i]
+        sellected_ayat = st.all_ayat_list[st.crt_Ayat_i]
         pl.playAudio(sellected_ayat)
 
     def btn_clk_back(self):

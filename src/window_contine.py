@@ -9,6 +9,8 @@ from src import player as pl
 
 from src.custom_widgets.Ayat_label import Ayat_label
 from src.custom_widgets.Btn_ico import Btn_ico
+from src.theme import co,set_custom_theme
+
 
 
 class Window(MainWindow):
@@ -30,7 +32,7 @@ class Window(MainWindow):
         
         self.spn_Ayat = QSpinBox()
         self.lb_fihrist = QLabel("Fihrist")
-        
+        self.cmb_theme = QComboBox()
         self.btn_Surah_search = Btn_ico(icon_path="data/img/icons/search.svg")
 
     def tool_part(self):
@@ -40,7 +42,12 @@ class Window(MainWindow):
         self.hBox_Surah_search.addWidget(self.btn_Surah_search)
         self.vBox_spacial_search.addWidget(self.lb_fihrist)
         self.vBox_spacial_search.addWidget(self.cmb_fihrist)
+        self.vBox_spacial_search.setAlignment(Qt.AlignTop)
 
+        self.vBox_spacial_search.setSpacing(30)
+        self.vBox_tools.setSpacing(30)
+        
+        
         self.vBox_Surah_search.addLayout(self.hBox_Surah_name)
         self.vBox_tools.addLayout(self.vBox_Surah_search)
         self.vBox_tools.addLayout(self.hBox_Surah_search)
@@ -49,6 +56,7 @@ class Window(MainWindow):
 
         self.cmb_Surah_option.addItems(st.surah_options)
         self.spn_Ayat.setMinimum(1)
+        self.fill_fihrist()
 
         self.cmb_Surah_name.currentIndexChanged.connect(self.cmb_Surah_change)
         self.spn_Ayat.valueChanged.connect(self.Ayat_chage)
@@ -57,11 +65,16 @@ class Window(MainWindow):
 
         self.search_part()
         
+        self.cmb_theme.currentIndexChanged.connect(self.cmb_change_theme)
+        self.cmb_theme.addItems(["Koyu Tema","Açık Tema"])
+        self.vBox_tools.addWidget(self.cmb_theme)
     def search_part(self):
         self.get_Surah_name()
         
         self.editable_combo(self.cmb_Surah_name)
         self.editable_combo(self.cmb_fihrist)
+        
+        self.cmb_fihrist.currentIndexChanged.connect(self.cmb_fihrist_change)
 
     def Surah_opt_chage(self):
         self.get_Surah_name()
@@ -76,6 +89,18 @@ class Window(MainWindow):
         self.cmb_Surah_name.clear()
         for s in st.Surah_names:
             self.cmb_Surah_name.addItem(f"{s[0]}-{s[1]}")
+            
+            
+            
+    def fill_fihrist(self):
+        self.db.start()
+        self.fihrist_list = self.db.get_element("FihristList","word_id,text")
+        self.db.end_process()
+        self.cmb_fihrist.addItems([fl[1] for fl in self.fihrist_list])
+        
+            
+            
+            
 
     def btn_Surah_search_clicked(self):
         selected = self.cmb_page_option.currentIndex()
@@ -105,9 +130,34 @@ class Window(MainWindow):
         print(max_ayat)
         self.spn_Ayat.setMaximum(max_ayat)
         
+    def cmb_fihrist_change(self):
+        index=self.cmb_fihrist.currentIndex()
+        word_id=self.fihrist_list[index][0]
+        self.db.start()
+        ayats = self.db.get_element("FihristAyat",where=("word_id",), data=(word_id,))
+        ayat_info=list(map(lambda x: (x[0],x[2]),ayats))
+        self.all_ayat=[]
+        for a in ayat_info:
+            self.all_ayat.append(self.db.get_element("Ayat",where=("ayat_no","surah_id"),data=a)[0])
+        #print(self.all_ayat)
+        self.fill_page(is_special=True)
+        
+        self.db.end_process()
+        
+        
+        
     def editable_combo(self,cmb):
         cmb.setEditable(True)
         completer = QCompleter(cmb.model(), self)
         completer.setFilterMode(Qt.MatchContains)  # Klavyeden yazılan kısmın elemanların herhangi bir yerinde geçmesi için
         completer.setCaseSensitivity(Qt.CaseInsensitive) # Büyük küçük harf hassasiyetini kapatarak aramayı yapar
         cmb.setCompleter(completer)
+        
+    def cmb_change_theme(self):
+        index=self.cmb_theme.currentIndex()
+        if index==0:
+            co.dark_theme()
+        else:
+            co.light_theme()
+        set_custom_theme(QApplication.instance())
+        
