@@ -1,4 +1,5 @@
 from src.db.db_external_pro import Db_Ex_pro
+import locale
 from locale import gettext as _
 
 
