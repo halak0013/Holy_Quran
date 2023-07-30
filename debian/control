@@ -1,16 +1,15 @@
-Source: Holy_Quran
+Source: holy-quran
 Section: x11
 Priority: optional
 Maintainer: Muhammet Halak <halakmuhammet145@gmail.com>
-Build-Depends: debhelper-compat (= 13), dh-python, python3-all, python3-setuptools , python3-pygame , python3-qtpy
+Build-Depends: debhelper-compat (= 13), dh-python, python3-all, python3-setuptools, python3-pygame, python3-qtpy
 Standards-Version: 4.6.1
 Homepage: https://github.com/halak0013/Kuran-I_Kerim_app
 
-Package: Holy_Quran
+Package: holy-quran
 Architecture: all
 Depends: ${misc:Depends},
          ${python3:Depends},
          python3-pygame,
-         python3-qtpy,
-
+         python3-qtpy
 Description: It is Holy Quran app.

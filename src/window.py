@@ -10,7 +10,7 @@ from locale import gettext as _
 
 
 # Translation Constants:
-APPNAME = "Holy_Quran"
+APPNAME = "holy-quran"
 TRANSLATIONS_PATH = "/usr/share/locale"
 # SYSTEM_LANGUAGE = os.environ.get("LANG")
 

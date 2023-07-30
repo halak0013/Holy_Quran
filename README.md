@@ -8,6 +8,8 @@ It is Holy Quran app
 
 <img src="data/img/test/main_v2.png" width="500">
 
+<img src="data/img/test/main_v3.png" width="500">
+
 .
 
 <img src="data/img/test/db_surah.png" width="500">
@@ -37,7 +39,7 @@ Presidency of Religious Affairs Noble Quran file](https://kuran.diyanet.gov.tr/Y
 ```console
 sudo apt install devscripts git-buildpackage
 sudo mk-build-deps -ir
-gbp buildpackage --git-export-dir=/tmp/build/Holy_Quran -us -uc --git-ignore-branch --git-ignore-new
+gbp buildpackage --git-export-dir=/tmp/build/holy-quran -us -uc --git-ignore-branch --git-ignore-new
 
 
 ## InshAllah Now it has

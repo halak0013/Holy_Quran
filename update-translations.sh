@@ -10,4 +10,4 @@ fi
 
 
 echo "updating pot file"
-xgettext -o po/Holy_Quran.pot --files-from=po/files
+xgettext -o po/holy-quran.pot --files-from=po/files
