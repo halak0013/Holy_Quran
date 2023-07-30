@@ -1,11 +1,11 @@
 from src.db.db_external_pro import Db_Ex_pro
-
+from locale import gettext as _
 
 
 
 
 #? LIST PART
-surah_options=["Kuran","Alfabetik","Nuzül"]
+surah_options=[_("Quran"),_("Alphabetical"),_("Nuzul")]
 
 
 

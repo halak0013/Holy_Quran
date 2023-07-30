@@ -1,4 +1,4 @@
-from src.window import MainWindow
+from src.window import MainWindow,_
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor, QPalette, QIcon, QTransform, QFont, QIntValidator
 from PySide6.QtWidgets import *
@@ -7,7 +7,6 @@ from PySide6.QtWidgets import *
 import src.static.stc1 as st
 from src import player as pl
 
-from src.custom_widgets.Ayat_label import Ayat_label
 from src.custom_widgets.Btn_ico import Btn_ico
 from src.theme import co,set_custom_theme
 
@@ -66,7 +65,7 @@ class Window(MainWindow):
         self.search_part()
         
         self.cmb_theme.currentIndexChanged.connect(self.cmb_change_theme)
-        self.cmb_theme.addItems(["Koyu Tema","Açık Tema"])
+        self.cmb_theme.addItems([_("Dark Theme"),_("Light Theme")])
         self.vBox_tools.addWidget(self.cmb_theme)
     def search_part(self):
         self.get_Surah_name()
@@ -75,6 +74,7 @@ class Window(MainWindow):
         self.editable_combo(self.cmb_fihrist)
         
         self.cmb_fihrist.currentIndexChanged.connect(self.cmb_fihrist_change)
+        self.cmb_fihrist.setMaximumWidth(350)
 
     def Surah_opt_chage(self):
         self.get_Surah_name()
@@ -96,11 +96,21 @@ class Window(MainWindow):
         self.db.start()
         self.fihrist_list = self.db.get_element("FihristList","word_id,text")
         self.db.end_process()
-        self.cmb_fihrist.addItems([fl[1] for fl in self.fihrist_list])
+        self.cmb_fihrist.addItems(self.make_smaller_lst(self.fihrist_list,3))
         
-            
-            
-            
+    def make_smaller_lst(self,lst,word_c):
+        res=[]
+        for e in lst:
+            tmp=""
+            tml=e[1].split()
+            l=len(tml)
+            for i,a in enumerate(tml):
+                if i%word_c==0 and i!= 0 and i != l-1:
+                    tmp+=a+"\n "
+                else:
+                    tmp+=a+" "
+            res.append(tmp)
+        return res
 
     def btn_Surah_search_clicked(self):
         selected = self.cmb_page_option.currentIndex()

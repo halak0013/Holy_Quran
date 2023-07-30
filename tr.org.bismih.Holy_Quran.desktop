@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Holy Quran
+Name[tr]=Kuran-ı Kerim
+GenericName=Holy Quran
+GenericName[tr]=Kuran-ı Kerim
+Comment=It is Holy Quran app.
+Comment[tr]=Kuran-ı Kerim Uygulaması.
+Exec=Holy_Quran
+Icon=Holy_Quran
+Terminal=false
+Type=Application
+Categories=Qt;Religion;Education;
+StartupNotify=true
+Keywords=Holy_Quran;Quran;Holy;Kuran;

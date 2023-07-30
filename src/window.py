@@ -1,19 +1,30 @@
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QColor, QPalette, QIcon, QTransform, QFont
 from PySide6.QtWidgets import *
 from src.db.db_external_pro import Db_Ex_pro
 import src.static.stc1 as st
 from src import player as pl
 from src.custom_widgets.Ayat_label import Ayat_label
 from src.theme import co
+import locale
+from locale import gettext as _
 
+
+# Translation Constants:
+APPNAME = "Holy_Quran"
+TRANSLATIONS_PATH = "/usr/share/locale"
+# SYSTEM_LANGUAGE = os.environ.get("LANG")
+
+# Translation functions:
+locale.bindtextdomain(APPNAME, TRANSLATIONS_PATH)
+locale.textdomain(APPNAME)
+# locale.setlocale(locale.LC_ALL, SYSTEM_LANGUAGE)
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         # ? Main Part
-        self.setWindowTitle("Kuran-ı Kerim")
+        self.setWindowTitle(_("Holy Quran"))
         self.resize(1000, 1100)
         self.all_variables()
         self.layout_add()
@@ -57,7 +68,7 @@ class MainWindow(QMainWindow):
 
         self.scroll_Ayat.setWidget(self.wdg_Ayat)
 
-        self.btn_setting = QPushButton("⚙ Kuran-ı Kerim")
+        self.btn_setting = QPushButton(_("⚙ Holy Quran"))
         self.cmb_page_option = QComboBox()
         self.label_Surah_name = QLabel("Fatiha")
         self.btn_page_next = QPushButton("◀️")
@@ -85,7 +96,7 @@ class MainWindow(QMainWindow):
         self.hBox_header.addWidget(self.spn_num)
         self.hBox_header.addWidget(self.btn_page_back)
 
-        self.cmb_page_option.addItems(["Sayfa", "Sure"])
+        self.cmb_page_option.addItems([_("Page"), _("Surah")])
         self.cmb_page_option.currentIndexChanged.connect(
             self.cmb_change_page_option)
 
