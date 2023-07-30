@@ -77,7 +77,8 @@ data_files = [
 
     ("/usr/share/holy-quran/",
      ["Kuran.db",
-      "LICENSE"]),
+      "LICENSE",
+      "main.py"]),
 
 ] + generate_mo_files()
 
