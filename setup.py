@@ -21,7 +21,7 @@ def generate_mo_files():
                        ["po/" + po.split(".po")[0] + "/LC_MESSAGES/Holy_Quran.mo"]))
     return mo
 
-
+print("********************************test")
 changelog = "debian/changelog"
 if os.path.exists(changelog):
     head = open(changelog).readline()

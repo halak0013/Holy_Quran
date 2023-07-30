@@ -8,6 +8,8 @@ It is Holy Quran app
 
 <img src="data/img/test/main_v2.png" width="500">
 
+<img src="data/img/test/main_v3.png" width="500">
+
 .
 
 <img src="data/img/test/db_surah.png" width="500">
