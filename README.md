@@ -40,7 +40,7 @@ Presidency of Religious Affairs Noble Quran file](https://kuran.diyanet.gov.tr/Y
 sudo apt install devscripts git-buildpackage
 sudo mk-build-deps -ir
 gbp buildpackage --git-export-dir=/tmp/build/holy-quran -us -uc --git-ignore-branch --git-ignore-new
-
+```
 
 ## InshAllah Now it has
 - Sperate Noble Quran ayats and generate data base.**
