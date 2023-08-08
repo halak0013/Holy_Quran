@@ -1,15 +1,6 @@
 import locale
 from locale import gettext as _
 
-# Translation Constants:
-APPNAME = "holy-quran"
-TRANSLATIONS_PATH = "/usr/share/locale"
-# SYSTEM_LANGUAGE = os.environ.get("LANG")
-
-# Translation functions:
-locale.bindtextdomain(APPNAME, TRANSLATIONS_PATH)
-locale.textdomain(APPNAME)
-# locale.setlocale(locale.LC_ALL, SYSTEM_LANGUAGE)
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import *

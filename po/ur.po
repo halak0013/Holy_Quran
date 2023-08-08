@@ -16,39 +16,42 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+#Translated from Google Translate with
+#https://github.com/halak0013/po_translator
+#if you check it please delete this comment
 
 #: src/window_continue.py:68
 msgid "Dark Theme"
-msgstr "Koyu Tema"
+msgstr "ڈارک تھیم"
 
 #: src/window_continue.py:68
 msgid "Light Theme"
-msgstr "Açık Tema"
+msgstr "ہلکی تھیم"
 
 #: src/window.py:27
 msgid "Holy Quran"
-msgstr "Kur'an-ı Kerim"
+msgstr "قران مجید"
 
 #: src/window.py:71
 msgid "⚙ Holy Quran"
-msgstr "⚙ Kur'an-ı Kerim"
+msgstr "⚙ قرآن پاک"
 
 #: src/window.py:99
 msgid "Page"
-msgstr "Sayfa"
+msgstr "صفحہ"
 
 #: src/window.py:99
 msgid "Surah"
-msgstr "Sure"
+msgstr "سورہ"
 
 #: src/static/stc1.py:17
 msgid "Quran"
-msgstr "Kuran"
+msgstr "قرآن"
 
 #: src/static/stc1.py:18
 msgid "Alphabetical"
-msgstr "Alfabetik"
+msgstr "حروف تہجی کے مطابق"
 
 #: src/static/stc1.py:19
 msgid "Nuzul"
-msgstr "Nüzul"
+msgstr "نزول"
