@@ -1,3 +1,15 @@
+holy-quran (1.5) stable; urgency=low
+
+  * adding translation with po_translator
+  * adding fihrist
+  * adding playing a lot of Imams
+  * adding surah and pages mode
+  * adding dark and light theme
+  * fixing combo_box items and adding searching mode
+  * a lot of background bug fixing
+
+ -- Muhammet Halak <halakmuhammet145@gmail.com>  Tue, 9 Agu 2023 00:15:13 +0300
+
 holy-quran (1.0) stable; urgency=low
 
   * Initial Commit
