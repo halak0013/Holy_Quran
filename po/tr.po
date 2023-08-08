@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-30 16:50+0300\n"
+"POT-Creation-Date: 2023-08-08 16:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,19 +19,19 @@ msgstr ""
 
 #: src/window_continue.py:68
 msgid "Dark Theme"
-msgstr "Karanlık tema"
+msgstr "Koyu Tema"
 
 #: src/window_continue.py:68
 msgid "Light Theme"
-msgstr "Açık Teması"
+msgstr "Açık Tema"
 
 #: src/window.py:27
 msgid "Holy Quran"
-msgstr "Kuran-ı Kerim"
+msgstr "kutsal Kuran"
 
 #: src/window.py:71
 msgid "⚙ Holy Quran"
-msgstr "⚙ Kur'an -ı Kerim"
+msgstr "⚙ Kur'an-ı Kerim"
 
 #: src/window.py:99
 msgid "Page"
@@ -39,16 +39,16 @@ msgstr "Sayfa"
 
 #: src/window.py:99
 msgid "Surah"
-msgstr "Sura"
+msgstr "sure"
 
-#: src/static/stc1.py:8
+#: src/static/stc1.py:17
 msgid "Quran"
-msgstr "Kur'an"
+msgstr "Kuran"
 
-#: src/static/stc1.py:8
+#: src/static/stc1.py:18
 msgid "Alphabetical"
 msgstr "Alfabetik"
 
-#: src/static/stc1.py:8
+#: src/static/stc1.py:19
 msgid "Nuzul"
-msgstr "Nuzül"
+msgstr "Nüzul"

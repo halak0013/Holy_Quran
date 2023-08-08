@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-30 16:50+0300\n"
+"POT-Creation-Date: 2023-08-08 16:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: src/window_continue.py:68
 msgid "Dark Theme"
-msgstr "موضوع مظلم"
+msgstr "مظهر داكن"
 
 #: src/window_continue.py:68
 msgid "Light Theme"
-msgstr "موضوع الضوء"
+msgstr "مظهر خفيف"
 
 #: src/window.py:27
 msgid "Holy Quran"
@@ -31,7 +31,7 @@ msgstr "القرآن الكريم"
 
 #: src/window.py:71
 msgid "⚙ Holy Quran"
-msgstr "القرآن الكريم"
+msgstr "⚙ القرآن الكريم"
 
 #: src/window.py:99
 msgid "Page"
@@ -41,14 +41,14 @@ msgstr "صفحة"
 msgid "Surah"
 msgstr "سورة"
 
-#: src/static/stc1.py:8
+#: src/static/stc1.py:17
 msgid "Quran"
 msgstr "القرآن"
 
-#: src/static/stc1.py:8
+#: src/static/stc1.py:18
 msgid "Alphabetical"
 msgstr "مرتب حسب الحروف الأبجدية"
 
-#: src/static/stc1.py:8
+#: src/static/stc1.py:19
 msgid "Nuzul"
-msgstr "نوزول"
+msgstr "نزل"

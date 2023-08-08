@@ -4,7 +4,7 @@ from PySide6.QtGui import QColor, QPalette, QIcon, QTransform, QFont, QIntValida
 from PySide6.QtWidgets import *
 # from src.db.db_external_pro import Db_Ex_pro
 
-import src.static.stc1 as st
+from src.static.stc1 import stc as st
 from src import player as pl
 
 from src.custom_widgets.Btn_ico import Btn_ico

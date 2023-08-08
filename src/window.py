@@ -1,13 +1,5 @@
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import *
-from src.db.db_external_pro import Db_Ex_pro
-import src.static.stc1 as st
-from src import player as pl
-from src.custom_widgets.Ayat_label import Ayat_label
-from src.theme import co
 import locale
 from locale import gettext as _
-
 
 # Translation Constants:
 APPNAME = "holy-quran"
@@ -18,6 +10,16 @@ TRANSLATIONS_PATH = "/usr/share/locale"
 locale.bindtextdomain(APPNAME, TRANSLATIONS_PATH)
 locale.textdomain(APPNAME)
 # locale.setlocale(locale.LC_ALL, SYSTEM_LANGUAGE)
+
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import *
+from src.db.db_external_pro import Db_Ex_pro
+from src.static.stc1 import stc as st
+from src import player as pl
+from src.custom_widgets.Ayat_label import Ayat_label
+from src.theme import co
+
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -260,6 +262,8 @@ class MainWindow(QMainWindow):
         else:
             self.play_status = "playing"
             pl.unPaues_audio()
+        surah_options = [_("Quran"), _("Alphabetical"), _("Nuzul")]
+        print(surah_options)
 
     def btn_clk_play_next(self):
         pl.is_first = True

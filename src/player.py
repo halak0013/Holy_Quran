@@ -2,7 +2,7 @@ import os
 import pygame
 import requests
 from PySide6.QtCore import QTimer
-import src.static.stc1 as st
+from src.static.stc1 import stc as st
 # TODO: when playing Ayat, it sholud download sound
 
 
