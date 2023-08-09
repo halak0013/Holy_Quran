@@ -39,7 +39,7 @@ class stc:
     crt_Ayat_i = 0
     Ayat_dif = 0
 
-    spn_p_min = 1
+    spn_p_min = 0
     spn_p_max = 604
     spn_s_min = 1
     spn_s_max = 114

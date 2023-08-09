@@ -10,6 +10,5 @@ Package: holy-quran
 Architecture: all
 Depends: ${misc:Depends},
          ${python3:Depends},
-         python3-pygame,
-         python3-qtpy
+         python3-pygame
 Description: It is Holy Quran app.

@@ -30,8 +30,6 @@ class MainWindow(QMainWindow):
         self.change_Surah_name()
 
     def all_variables(self):
-        self.default_surah = 1
-        self.default_page = 1
         self.imam_code = "Abu_Bakr_Ash-Shaatree_64kbps"
         self.play_status = "none"
         self.sellected_ayat: tuple
@@ -190,7 +188,7 @@ class MainWindow(QMainWindow):
         self.splitter.addWidget(self.wdg_Ayat_player)
 
     def change_page(self):
-        self.fill_page(("page",), (self.spn_num.value()-1,))
+        self.fill_page(("page",), (self.spn_num.value(),))
 
     def change_Surah(self):
         self.fill_page(("surah_id",), (self.spn_num.value(),))
