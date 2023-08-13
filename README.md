@@ -52,6 +52,6 @@ gbp buildpackage --git-export-dir=/tmp/build/holy-quran -us -uc --git-ignore-bra
 ** you can generate same data base with jupiter nootbok and Kuran.txt but i take page numbers and secde ayats info another database
 
 ## InshAllah it will have
-- Searching Keyword, word and senetence
+- Searching Keyword, word and sentence
 - Meal
 - Translation
