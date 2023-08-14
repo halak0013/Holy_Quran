@@ -3,16 +3,16 @@
 Bu Kur'an-ı Kerim uygulaması
 
 # bazı ekran görüntüleri
-<img src="veri/img/logo.png" width="100">
+<img src="data/img/logo.png" width="100">
 
 
-<img src="veri/img/test/main_v2.png" width="500">
+<img src="data/img/test/main_v2.png" width="500">
 
-<img src="veri/img/test/main_v3.png" width="500">
+<img src="data/img/test/main_v3.png" width="500">
 
 .
 
-<img src="veri/img/test/db_surah.png" width="500">
+<img src="data/img/test/db_surah.png" width="500">
 
 .
 
@@ -24,7 +24,7 @@ Bu Kur'an-ı Kerim uygulaması
 
 .
 
-<img src="veri/img/test/txt.png" width="500">
+<img src="data/img/test/txt.png" width="500">
 
 
 [Türkiye Cumhuriyeti Cumhurbaşkanlığı
