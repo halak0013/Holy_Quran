@@ -1,4 +1,5 @@
 # ﷽
+[Türkçe](BENIOKU.md)
 ## Kuran-I_Kerim_app
 It is Holy Quran app
 
