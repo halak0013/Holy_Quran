@@ -32,7 +32,8 @@ class stc:
 
     # ? SETTING PART
     # TODO: add windows support
-    Ayat_f = "/tmp/Ayat_Audio"
+    home_directory = os.path.expanduser("~")
+    Ayat_f = home_directory + "/Ayat_Audio"
 
 
     # ? GLOBAL VARIABLES PART
