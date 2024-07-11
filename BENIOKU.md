@@ -30,11 +30,11 @@ Bu Kur'an-ı Kerim uygulaması
 [Türkiye Cumhuriyeti Cumhurbaşkanlığı
 Diyanet İşleri Başkanlığı Kur'an-ı Kerim dosyası](https://kuran.diyanet.gov.tr/Yayinlar)
 
-# Running
+# Çalıştırma
 
 `python3 main.py`
 
-# Building
+# Derleme
 
 ```console
 sudo apt install devscripts git-buildpackage

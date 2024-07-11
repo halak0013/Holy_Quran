@@ -33,7 +33,9 @@ class stc:
     # ? SETTING PART
     # TODO: add windows support
     home_directory = os.path.expanduser("~")
-    Ayat_f = home_directory + "/Ayat_Audio"
+    App_dir = home_directory + "/.Holy_Quran"
+    app_config = App_dir + "/config"
+    Ayat_f = App_dir + "/Ayat_Audio"
 
 
     # ? GLOBAL VARIABLES PART

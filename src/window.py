@@ -1,8 +1,9 @@
-import locale
+import os
 from locale import gettext as _
 
 
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QCloseEvent
 from PySide6.QtWidgets import *
 from src.db.db_external_pro import Db_Ex_pro
 from src.static.stc1 import stc as st
@@ -26,7 +27,7 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(self.wdg_main)
 
-        self.fill_page(("page",), (0,))
+        self.load()
         self.change_Surah_name()
 
     def all_variables(self):
@@ -268,3 +269,30 @@ class MainWindow(QMainWindow):
     def btn_clk_next(self):
         # ? it is already changing in the spinner function
         self.spn_num.setValue(self.spn_num.value()+1)
+
+    def closeEvent(self, event: QCloseEvent) -> None:
+        if not os.path.exists(st.App_dir):
+            os.makedirs(st.App_dir)
+        with open(st.app_config, "w") as f:
+            f.write("page_no:"+str(self.spn_num.value()))
+            f.write("\nayat_no:"+str(st.crt_Ayat_i))
+        return super().closeEvent(event)
+    
+    def load(self):
+        if not os.path.exists(st.App_dir):
+            os.makedirs(st.App_dir)
+            self.fill_page(("page",), (0,)) #başlangıca ayar eklenecek
+        else:
+            ayat_no=0
+            page_no=0
+            config=""
+            with open(st.app_config, "r") as f:
+                config = f.readlines()
+            for line in config:
+                if line.startswith("page_no:"):
+                    page_no = int(line.split(":")[1])
+                elif line.startswith("ayat_no:"):
+                    ayat_no = int(line.split(":")[1].strip())
+            self.fill_page(("page",), (page_no,))
+            st.crt_Ayat_i=ayat_no
+            self.Ayat_coloring()
